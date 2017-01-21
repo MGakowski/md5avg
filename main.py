@@ -1,17 +1,36 @@
+# Title
+print ""
+print " _____ ____  ___                "
+print "|     |    \|  _|   ___ _ _ ___  {v1.0}"
+print "| | | |  |  |_  |  | .'| | | . |"
+print "|_|_|_|____/|___|  |__,|\_/|_  |"
+print "          by MGakowski     |___| "
+print ""
+print "[#] Outputs average digest from a given list of digests."
+print"[#] Ensure list is a .txt & has no blank lines!"
+
+# Gets filename of hash list
+filename = str(raw_input("File name of hash list? "))
+
+# Gets Line count
+load_profile = open(filename+'.txt', "r")
+with open('list.txt') as f:
+    linecount = sum(1 for _ in f)
+    print str(linecount)+" hashes loaded"
+
 currentl = 0
-char0 = str("abc123")
 val0 = int()
 currentavghash = str()
-fl = 3  # Adjust file lines
-charval = int()
 charpos = 0
 
 for y in range(0, 32):
-    for x in range(0, fl):
+    for x in range(0, linecount):
         
-        load_profile = open('list.txt', "r")
+        load_profile = open(filename+'.txt', "r")
         read_it = load_profile.read().splitlines()[currentl]
         currenth = str(read_it)
+        with open('list.txt') as f:
+            linecount = sum(1 for _ in f)
 
         if currenth[charpos] == "0":
             val0 += 1
@@ -66,8 +85,8 @@ for y in range(0, 32):
         else:
             currentl = 0
 
-        print val0
-        thischar = str(val0/fl)
+        #print val0
+        thischar = str(val0/linecount)
 
     if thischar == "1":
         currentavghash += str("0")
@@ -117,8 +136,8 @@ for y in range(0, 32):
     if thischar == "16":
         currentavghash += str("f")
 
-    print thischar+str(" $")
+    #print thischar+str(" $")
     val0 = 0
     charpos += 1
-
+print str("Average hash for these "+str(linecount)+" hashes:")
 print currentavghash

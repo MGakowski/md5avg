@@ -8,6 +8,8 @@ print "          by MGakowski     |___| "
 print ""
 print "[#] Outputs average digest from a given list of digests."
 print"[#] Ensure list is a .txt & has no blank lines!"
+print"[#] Supports hash algorithms with lower chars a-f & 0-9."
+print"[#] Uses python 2.7. Last update 21 Jan 2017"
 
 # Gets filename of hash list
 filename = str(raw_input("File name of hash list? "))
@@ -23,6 +25,8 @@ currentl = 0
 val0 = int()
 currentavghash = str()
 charpos = 0
+percinc = 100/hashlength
+progress = 0
 
 for y in range(0, hashlength):
     for x in range(0, linecount):
@@ -84,7 +88,7 @@ for y in range(0, hashlength):
         else:
             currentl = 0
 
-        #print val0
+        # print val0
         thischar = str(val0/linecount)
 
     if thischar == "1":
@@ -135,9 +139,12 @@ for y in range(0, hashlength):
     if thischar == "16":
         currentavghash += str("f")
 
-    #print thischar+str(" $")
+    # print thischar+str(" $")
     val0 = 0
     charpos += 1
+    # Progress counter, based on char pos
+    progress += percinc
+    print str(str(progress)+"% processed")
 
 print str("Average hash for these "+str(linecount)+" hashes:")
 print currentavghash

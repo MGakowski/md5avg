@@ -12,25 +12,24 @@ print"[#] Ensure list is a .txt & has no blank lines!"
 # Gets filename of hash list
 filename = str(raw_input("File name of hash list? "))
 
-# Gets Line count
+# Gets Line count & hash length
 load_profile = open(filename+'.txt', "r")
-with open('list.txt') as f:
+with open(filename+'.txt') as f:
     linecount = sum(1 for _ in f)
     print str(linecount)+" hashes loaded"
+hashlength = int(raw_input("Length of hash; 32=md5, 40=sha1? "))
 
 currentl = 0
 val0 = int()
 currentavghash = str()
 charpos = 0
 
-for y in range(0, 32):
+for y in range(0, hashlength):
     for x in range(0, linecount):
         
         load_profile = open(filename+'.txt', "r")
         read_it = load_profile.read().splitlines()[currentl]
         currenth = str(read_it)
-        with open('list.txt') as f:
-            linecount = sum(1 for _ in f)
 
         if currenth[charpos] == "0":
             val0 += 1
@@ -80,7 +79,7 @@ for y in range(0, 32):
         if currenth[charpos] == "f":
             val0 += 16
 
-        if currentl < 2:
+        if currentl < linecount-1:
             currentl += 1
         else:
             currentl = 0
@@ -139,5 +138,6 @@ for y in range(0, 32):
     #print thischar+str(" $")
     val0 = 0
     charpos += 1
+
 print str("Average hash for these "+str(linecount)+" hashes:")
 print currentavghash

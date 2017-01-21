@@ -15,23 +15,23 @@ print"[#] Uses python 2.7. Last update 21 Jan 2017"
 filename = str(raw_input("File name of hash list? "))
 
 # Gets Line count & hash length
-load_profile = open(filename+'.txt', "r")
-with open(filename+'.txt') as f:
+load_profile = open(filename + '.txt', "r")
+with open(filename + '.txt') as f:
     linecount = sum(1 for _ in f)
-    print str(linecount)+" hashes loaded"
-hashlength = int(raw_input("Length of hash; 32=md5, 40=sha1? "))
+    hashlength = len(load_profile.readline()) - 1
+    print str(linecount) + ", " + str(hashlength) + " character long hashes loaded."
 
 currentl = 0
 val0 = int()
 currentavghash = str()
 charpos = 0
-percinc = 100/hashlength
+percinc = 100 / hashlength
 progress = 0
 
 for y in range(0, hashlength):
     for x in range(0, linecount):
-        
-        load_profile = open(filename+'.txt', "r")
+
+        load_profile = open(filename + '.txt', "r")
         read_it = load_profile.read().splitlines()[currentl]
         currenth = str(read_it)
 
@@ -83,13 +83,13 @@ for y in range(0, hashlength):
         if currenth[charpos] == "f":
             val0 += 16
 
-        if currentl < linecount-1:
+        if currentl < linecount - 1:
             currentl += 1
         else:
             currentl = 0
 
         # print val0
-        thischar = str(val0/linecount)
+        thischar = str(val0 / linecount)
 
     if thischar == "1":
         currentavghash += str("0")
@@ -144,7 +144,7 @@ for y in range(0, hashlength):
     charpos += 1
     # Progress counter, based on char pos
     progress += percinc
-    print str(str(progress)+"% processed")
+    print str(str(progress) + "% processed")
 
-print str("Average hash for these "+str(linecount)+" hashes:")
+print str("Average hash for these " + str(linecount) + " hashes:")
 print currentavghash
